@@ -8,27 +8,29 @@ public class Animal : MonoBehaviour
 {
     // 移動している動物がいないかチェックするリスト.
     public static List<Moving> MovingLists = new List<Moving>();
-    private Rigidbody2D rigid_ = default;
+
+    private Rigidbody2D rigidbody_ = default;
+
     // 移動チェック変数.
     private Moving moving_ = new Moving();
 
-    public Rigidbody2D Rigid
+    public Rigidbody2D Rigidbody
     {
         get
         {
-            if (rigid_ == null)
+            if (rigidbody_ == null)
             {
-                rigid_ = GetComponent<Rigidbody2D>();           
+                rigidbody_ = GetComponent<Rigidbody2D>();
             }
-            return rigid_;
-            
+
+            return rigidbody_;
         }
     }
 
     /// <summary>
     /// 
     /// </summary>
-    void Start()
+    private void Start()
     {
         MovingLists.Add(moving_);
     }
@@ -38,7 +40,8 @@ public class Animal : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        if (Rigid.velocity.magnitude > 0.01f)
+        // 動いているかどうかを判定する.
+        if (Rigidbody.velocity.magnitude > 0.01f)
         {
             moving_.isMove = true;
         }
